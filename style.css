@@ -1,0 +1,202 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+
+#container{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 150px auto 100px;
+    min-height: 100vh;
+    /*width: 100vw; */
+}
+
+#header{
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+#main-left{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+#main-center{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+#main-right{
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+
+footer{
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 3;
+    grid-row-end: 4;
+}
+h1{
+    font-weight: bold;
+    font-size: 3em;
+    text-align: center;
+    padding: 10px;
+}
+
+/* START SIGNUP PAGE */
+
+#login{
+    font-size: 17px;
+    font-weight: normal;
+    text-align: right;
+    padding: 0px 25px 5px
+}
+
+#create-account{
+    padding-top: 10px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.form div{
+    clear: both;
+    float: left
+    
+}
+
+input{
+    display: block;
+    margin-top: 10px;
+    padding: 5px;
+}
+/*
+input[type="date"]{
+    background-color: #0080ff;
+    color: #ffffff;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+*/
+
+.form{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 40px;
+    border: 5px double black;
+    outline: 5px double black;
+    outline-offset: -20px;
+    margin: -20px;
+    padding: 20px;
+    justify-items: center;
+    border-radius: 20px;
+}
+
+.form-input{
+    padding: 10px 0px 20px 20px;
+    
+}
+
+.left-container{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+.right-container{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+#submit-button{
+    padding-bottom: 5px;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+.button{
+    font-size: 1.1em;
+    background: transparent;
+    border-radius: 4px;
+}
+
+/*END SIGNUP PAGE */
+
+/*START QUESTION MANAGEMENT PAGE */
+
+.logout{
+    color: black;
+    font-size: 15px;
+    float: right;
+    border: 2px solid black;
+    border-radius: 5px;
+    text-decoration: none;
+    padding: 7px;
+    margin-right: 20px;
+}
+
+h2 > button.button{
+    margin:0 auto;
+    display:block;
+    text-align:center; 
+
+}
+
+.qa-content{
+    border: 2px solid black;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    padding: 15px;
+}
+
+.question-content{
+    border: 2px solid black;
+    border-radius: 8px;
+    margin-bottom: 40px;
+    padding: 20px;
+}
+
+.answer-content{
+    border: 2px solid black;
+    border-radius: 8px;
+    margin: 0px 0px 20px 40px;
+    padding: 20px;
+}
+
+.user-info{
+    color: rgb(133, 133, 133);
+}
+span.image{
+    border: 2px solid black;
+    padding: 6px 2px 6px 2px;
+}
+
+span.user{
+    padding-right: 5px;
+}
+
+span.date-time{
+    padding-left: 10px;
+}
+
+.up-arrow, .down-arrow{
+    background: transparent;
+    border-radius: 100px;
+    margin: 2px;
+    font-size: 20px;
+}
