@@ -484,3 +484,9 @@ h2 > a.button{
     margin: 2px;
     font-size: 20px;
 }
+
+/* added so users can click on the question to go to the detail page*/
+.question-detail-link{
+    text-decoration: none;
+    color:white;
+}
