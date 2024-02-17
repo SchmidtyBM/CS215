@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Signup</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="assignment3/js/eventHandlers.js"></script>
+</head>
+
+<body>
+    <div id="container">
+        <header id="header-auth">
+            <h1>
+                Social Questions/Answers
+            </h1>
+        </header>
+        <main id="main-left"></main>
+        <main id="main-center">
+            <h2 id="create-account">Create an Account</h2>
+            <form id="signup-form" class="form" action="mainAfterLogin.html" method="post">
+                <div class="left-container">
+                    <div class="form-input">
+                        <label for="firstName">First Name</label>
+                        <input type="text" name="firstName" id="firstName" />
+                    </div>
+
+                    <div class="form-input">
+                        <label for="email">Email</label>
+                        <input type="text" name="email" id="email" />
+                    </div>
+
+                    <div class="form-input">
+                        <label for="dateOfBirth">Date of Birth</label>
+                        <input type="date" name="dateOfBirth" id="dateOfBirth" />
+                    </div>
+
+                    <div class="form-input">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" />
+                    </div>
+                </div>
+                <div class="right-container">
+                    <div class="form-input">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" name="lastName" id="lastName" />
+                    </div>
+
+                    <div class="form-input">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username" />
+                    </div>
+
+                    <div class="form-input">
+                        <label for="avatar">Avatar</label>
+                        <input type="file" name="avatar" id="avatar" />
+                    </div>
+                    
+                    <div class="form-input">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" name="confirmPassword" id="confirmPassword" />
+                    </div>
+                </div>
+                <div id="submit-button">
+                    <!--<input type="submit" name="submit" value="Create Account"> -->
+                    <button class="button" type="submit">Create Account</button>
+                </div>
+            </form>
+        </main>
+        <main id="main-right">
+            <p id="login">
+                Already a user?
+                <a href="index.html">Login</a>
+            </p>
+        </main>
+        <footer id="footer-auth">
+
+        </footer>
+    </div>
+    <script src="assignment3/js/eventRegisterSignup.js"></script>
+</body>
+
+</html>
