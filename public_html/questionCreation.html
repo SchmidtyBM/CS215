@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <title>Question Creation</title>
     <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="assignment3/js/eventHandlers.js"></script>
 </head>
 
 <body>
@@ -19,7 +20,7 @@
         </main>
 
         <main id="main-center">
-            <form class="auth-form" action="questionDetail.html" method="post">
+            <form id="creation-form" class="auth-form" action="questionDetail.html" method="post">
                 <p>
                     <label for="question">Ask Your Question:</label>
                     <textarea id="question" name="question" rows="10" cols="5" placeholder="Enter Your Question"></textarea>
@@ -40,6 +41,7 @@
             <p class="footer-text"></p>
         </footer>
     </div>
+    <script src="assignment3/js/eventRegisterCreation.js"></script>
 </body>
 
 </html>
