@@ -34,6 +34,14 @@ function validatePassword(password){
     return true;
 }
 
+// ADDED VALIDATOR FUNCTION FOR USER QUESTIONS AND RESPONSES
+function validateText(text){
+    if(text.trim() == "" || text.length > 1500){
+        return false;
+    }
+    return true;
+}
+
 function validateLogin(event){
     let username = document.getElementById("username");
     let password = document.getElementById("password");
@@ -196,6 +204,66 @@ function validateSignup(event){
 	}
 }
 
+// ADDED 2 VALIDATOR FUNCTIONS FOR THE CREATION AND DETAIL PAGE
+
+function validateCreation(event){
+    let question = document.getElementById("question");
+
+    let formIsValid = true;
+
+    const questionSpan = document.createElement("span");    
+    questionSpan.classList.add("error-text"); 
+    let questionErrorMessage = question.parentNode;
+
+    if(!validateText(question.value)){
+        question.classList.add("error-box");
+        questionSpan.innerHTML = "Question must be non-empty and less than 1500 characters";
+        if(questionErrorMessage.lastChild.innerHTML != questionSpan.innerHTML){
+            questionErrorMessage.appendChild(questionSpan);  
+        }
+        formIsValid = false;
+    }
+    else{
+        question.classList.remove("error-box");
+        if(questionErrorMessage.lastChild.innerHTML === questionSpan.innerHTML){
+            questionErrorMessage.removeChild(questionErrorMessage.lastChild);
+        }
+    }
+
+    if (formIsValid === false){
+		event.preventDefault();
+	}
+}
+
+function validateDetail(event){
+    let respons = document.getElementById("userAns");
+
+    let formIsValid = true;
+
+    const responseSpan = document.createElement("span");    
+    responseSpan.classList.add("error-text"); 
+    let responseErrorMessage = response.parentNode;
+
+    if(!validateText(response.value)){
+        response.classList.add("error-box");
+        responseSpan.innerHTML = "Response must be non-empty and less than 1500 characters";
+        if(responseErrorMessage.lastChild.innerHTML != responseSpan.innerHTML){
+            responseErrorMessage.appendChild(responseSpan);  
+        }
+        formIsValid = false;
+    }
+    else{
+        response.classList.remove("error-box");
+        if(responseErrorMessage.lastChild.innerHTML === responseSpan.innerHTML){
+            responseErrorMessage.removeChild(responseErrorMessage.lastChild);
+        }
+    }
+
+    if (formIsValid === false){
+		event.preventDefault();
+	}
+}
+
 //Start handler functions
 
 function emailHandler(event){
@@ -311,6 +379,54 @@ function confirmPasswordHandler(event){
 	}
     else{
         confirmPassword.classList.remove("error-box");
+        if(errorMessage.lastChild.innerHTML === span.innerHTML){
+            errorMessage.removeChild(errorMessage.lastChild);
+        }
+    }
+}
+
+// ADDED 2 HANDLER FUNCTIONS FOR QUESTION CREATION AND DETAIL PAGE RESPECTFULLY
+
+function questionHandler(event){
+    let question = document.getElementById("question");
+
+    const span = document.createElement("span");    
+    span.innerHTML = "Question must be non-empty and less than 1500 characters";
+    span.classList.add("error-text"); 
+    
+    let errorMessage = question.parentNode;
+
+    if(!validateText(question.value)){
+        question.classList.add("error-box");
+        if(errorMessage.lastChild.innerHTML != span.innerHTML){
+            errorMessage.appendChild(span);
+        }
+    }
+    else{
+        question.classList.remove("error-box");
+        if(errorMessage.lastChild.innerHTML === span.innerHTML){
+            errorMessage.removeChild(errorMessage.lastChild);
+        }
+    }
+}
+
+function responseHandler(event){
+    let response = document.getElementById("userAns");
+
+    const span = document.createElement("span");
+    span.innerHTML = ("Response must be non-empty and less than 1500 characters");
+    span.classList.add("error-text");
+
+    let errorMessage =  response.parentNode;
+
+    if(!validateText(response.value)){
+        response.classList.add("error-box");
+        if(errorMessage.lastChild.innerHTML != span.innerHTML){
+            errorMessage.appendChild(span);
+        }
+    }
+    else{
+        response.classList.remove("error-box");
         if(errorMessage.lastChild.innerHTML === span.innerHTML){
             errorMessage.removeChild(errorMessage.lastChild);
         }
