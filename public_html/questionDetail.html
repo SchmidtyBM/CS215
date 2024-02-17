@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <title>Question Detail</title>
     <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <script src="assignment3/js/eventHandlers.js"></script>
 </head>
 
 <body>
@@ -102,7 +103,7 @@
             </div>
 
             <div class="auth-form">
-                <form action="questionDetail.html" method="post">
+                <form id="response-form" action="questionDetail.html" method="post">
                     <p>
                         <label for="userAns" >Post Your Answer:</label>
                         <textarea id="userAns" name="userAns" rows="10" cols="5" placeholder="Enter your Answer"></textarea>
@@ -121,6 +122,7 @@
         <footer id="footer-auth">
         </footer>
     </div>
+    <script src="js/eventRegisterDetail.js"></script>
 </body>
 
 </html>
