@@ -432,3 +432,23 @@ function responseHandler(event){
         }
     }
 }
+
+// ADDED DYNAMIC CHARACTER COUNTER FUNCTION
+function charCountHandler(event){
+    let myText = document.getElementById("text-area");
+    let result = document.getElementById("charcount");
+    let limit = 1500;
+
+    result.textContent = 0 + "/" + limit;
+
+    let textLength = myText.value.length;
+    result.textContent = textLength + "/" + limit;
+
+    if(textLength > limit){
+        result.style.color = "#ff2851";
+
+    }
+    else{
+        result.style.color = "#ffffff";  
+    }
+}
