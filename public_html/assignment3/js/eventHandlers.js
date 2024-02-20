@@ -207,7 +207,7 @@ function validateSignup(event){
 // ADDED 2 VALIDATOR FUNCTIONS FOR THE CREATION AND DETAIL PAGE
 
 function validateCreation(event){
-    let question = document.getElementById("question");
+    let question = document.getElementById("text-area");
 
     let formIsValid = true;
 
@@ -236,7 +236,7 @@ function validateCreation(event){
 }
 
 function validateDetail(event){
-    let respons = document.getElementById("userAns");
+    let response = document.getElementById("text-area");
 
     let formIsValid = true;
 
@@ -388,7 +388,7 @@ function confirmPasswordHandler(event){
 // ADDED 2 HANDLER FUNCTIONS FOR QUESTION CREATION AND DETAIL PAGE RESPECTFULLY
 
 function questionHandler(event){
-    let question = document.getElementById("question");
+    let question = document.getElementById("text-area");
 
     const span = document.createElement("span");    
     span.innerHTML = "Question must be non-empty and less than 1500 characters";
@@ -411,7 +411,7 @@ function questionHandler(event){
 }
 
 function responseHandler(event){
-    let response = document.getElementById("userAns");
+    let response = document.getElementById("text-area");
 
     const span = document.createElement("span");
     span.innerHTML = ("Response must be non-empty and less than 1500 characters");
