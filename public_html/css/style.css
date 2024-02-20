@@ -490,3 +490,10 @@ h2 > a.button{
     color: red;
     font-size: 15px;
 }
+
+/*added for char count style*/
+.charcount{
+    color: white;
+    font-size: 15px;
+    text-align: right;
+}
