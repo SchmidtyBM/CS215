@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $password = test_input($_POST["password"]);
-    $passwordRegex = "/^.{8}$/";
+    $passwordRegex = "/^(?=.*[^a-zA-Z]).{6,}$/";
     if (!preg_match($passwordRegex, $password)) {
         $errors["password"] = "Invalid Password";
         $dataOK = FALSE;
