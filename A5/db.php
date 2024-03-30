@@ -1,8 +1,8 @@
 <?php
 	$db_host = "localhost";
-	$db_user = "fvc524";  
-	$db_pwd = "fvcJID6!"; 
-	$db_db = "fvc524";
+	$db_user = "";  
+	$db_pwd = ""; 
+	$db_db = "";
 
 	$charset = 'utf8mb4';
 	$attr = "mysql:host=$db_host;dbname=$db_db;charset=$charset";
