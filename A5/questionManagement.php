@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Question Management</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+
+<body>
+    <div id="container">
+        <header id="header-auth">
+            <h1>
+                Manage Questions       
+            </h1>
+            
+        </header>
+        <main id="main-left"></main>
+        <main id="main-center">
+            <h2>
+                <a class="button" href="questionCreation.php">Ask a Question</a>
+            </h2>
+            <article class="qa-content">
+                <div class="question-content">
+                    <div class="user-info">
+                        <img src="images/avatar.jpg" alt="Avatar" class="image" />
+                        <span class="user"><strong>&lt;user&gt;</strong></span>
+                        <span class="separate">&#x2022;</span>
+                        <span class="date-time">Posted on &lt;Date/Time&gt;</span>
+                    </div>
+                    <p class="question">
+                        QUESTION 1
+                    </p>
+                </div>
+                <div class="answer-content">
+                    <div class="user-info">
+                        <img src="images/avatar.jpg" alt="Avatar" class="image" />
+                        <span class="user"><strong>&lt;user&gt;</strong></span>
+                        <span class="separate">&#x2022;</span>
+                        <span class="date-time">Posted on &lt;Date/Time&gt;</span>
+                    </div>
+                    <p>
+                        ANSWER 1
+                    </p>
+                    
+                    <div class="upvote-downvote">
+                        <span class="up-arrow">&#x21e7; 3</span>
+                        <span class="down-arrow">&#x21e9; 1</span>
+                    </div>
+                </div>
+                <div class="answer-content">
+                    <div class="user-info">
+                        <img src="images/avatar.jpg" alt="Avatar" class="image" />
+                        <span class="user"><strong>&lt;user&gt;</strong></span>
+                        <span class="separate">&#x2022;</span>
+                        <span class="date-time">Posted on &lt;Date/Time&gt;</span>
+                    </div>
+                    <p>
+                        ANSWER 2
+                    </p>
+                    <div class="upvote-downvote">
+                        <span class="up-arrow">&#x21e7; 2</span>
+                        <span class="down-arrow">&#x21e9; 4</span>
+                    </div>
+                </div>
+            </article>
+            <article class="qa-content">
+                <div class="question-content">
+                    <div class="user-info">
+                        <img src="images/avatar.jpg" alt="Avatar" class="image" />
+                        <span class="user"><strong>&lt;user&gt;</strong></span>
+                        <span class="separate">&#x2022;</span>
+                        <span class="date-time">Posted on &lt;Date/Time&gt;</span>
+                    </div>
+                    <p class="question">
+                        QUESTION 2
+                    </p>
+                </div>
+                <div class="answer-content">
+                    No answers have been provided yet
+                </div>
+            </article>
+        </main>
+        <main id="main-right">
+            <a class="logout" href="index.php">Logout</a>
+            <div class="username">Username</div>
+            <img src="images/avatar.jpg" alt="Avatar" class="image" />
+        </main>
+        <footer id="footer-auth">
+
+        </footer>
+    </div>
+</body>
+
+</html>
