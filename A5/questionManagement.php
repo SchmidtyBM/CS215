@@ -83,7 +83,7 @@
                         <span class="date-time">Posted on <?=$row["question_dt"]?></span>
                     </div>
                     <p class="question">
-                        <a class="question-detail-link" href="questionDetail.php?question_id=<?=$row["question_id"]?>"><?=$row["question"]?></a>
+                        <a class="question-detail-link" href="questionDetail.php?question_id=<?=$row["question_id"]?>&question=<?=htmlspecialchars($row["question"])?>&question_dt=<?=$row["question_dt"]?>"><?=$row["question"]?></a>
                     </p>
                 </div>
                 <?php
