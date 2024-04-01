@@ -1,3 +1,29 @@
+<?php
+    require_once("db.php");
+
+    try {
+        $db = new PDO($attr, $db_user, $db_pwd, $options);
+    } catch (PDOException $e) {
+        throw new PDOException($e->getMessage(), (int)$e->getCode());
+    }
+    $query = "SELECT
+                    Users.avatar,
+                    Users.screen_name,
+                    Questions.question, 
+                    Questions.created_dt,
+                    COUNT(Answers.question_id) as total_responses
+                FROM Questions
+                LEFT JOIN Users
+                ON Questions.user_id = Users.user_id
+                LEFT JOIN Answers
+                ON Answers.question_id = Questions.question_id
+                GROUP BY Questions.question_id
+                ORDER BY Questions.created_dt desc
+                LIMIT 20";
+
+    $result = $db->query($query);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,178 +46,30 @@
             </h2>
             <!-- This section can be populated dynamically when integrated with a backend -->
             <article class="question-container">
+                <?php
+                while($row = $result->fetch()){
+                ?>
                 <div class="main-question-content">
+                    
                     <div class="user-info">
-                        <img src="images/images.jpg" alt="User Avatar" class="user-avatar" />
-                        <span class="user"> <strong>Francis</strong></span>
+                        <img src="<?=$row["avatar"]?>" alt="User Avatar" class="user-avatar" />
+                        <span class="user"> <strong><?= $row["screen_name"]?></strong></span>
                         <span class="separate">&#x2022;</span>
-                        <span class="date-time">Posted on &lt;Date/Time&gt;</span>
+                        <span class="date-time">Posted on <?= $row["created_dt"]?></span>
                     </div>
 
                     <h2>
-                        <a class="question-detail-link" href="questionDetail.php">Why should people learn HTML?</a>
+                        <a class="question-detail-link" href="questionDetail.php"><?= $row["question"]?>?</a>
                     </h2> 
-
                     <div class="response">
-                        <p>5 Responses</p>
+                        <p> <?= $row["total_responses"]?> Responses</p>
                     </div>
                     
                 </div>
-                
-                <div class="main-question-content">
-                    <div class="user-info">
-                        <img src="images/images1.jpg" alt="User Avatar" class="user-avatar" />
-                        <span class="user"> <strong>Brady</strong></span>
-                        <span class="separate">&#x2022;</span>
-                        <span class="date-time">Posted on &lt;Date/Time&gt;</span>
-                    </div>
-
-                    <h2>
-                        <a class="question-detail-link" href="questionDetail.php">Is there an easy way to learn HTML?</a>
-                    </h2> 
-
-                    <div class="response">
-                        <p>2 Responses</p>
-                    </div>
-                    
-                </div>
-            
-                <div class="main-question-content">
-                    <div class="user-info">
-                        <img src="images/images2.jpg" alt="User Avatar" class="user-avatar" />
-                        <span class="user"> <strong>Tajin</strong></span>
-                        <span class="separate">&#x2022;</span>
-                        <span class="date-time">Posted on &lt;Date/Time&gt;</span>
-                    </div>
-
-                    <h2>
-                        <a class="question-detail-link" href="questionDetail.php">What is the difference between HTML and CSS?</a>
-                    </h2> 
-                
-                    <div class="response">
-                        <p>4 Responses</p>
-                    </div>
-                </div>
-                <div class="main-question-content">
-                    <div class="user-info">
-                        <img src="images/images.jpg" alt="User Avatar" class="user-avatar" />
-                        <span class="user"> <strong>Francis</strong></span>
-                        <span class="separate">&#x2022;</span>
-                        <span class="date-time">Posted on &lt;Date/Time&gt;</span>
-                    </div>
-
-                    <h2>
-                        <a class="question-detail-link" href="questionDetail.php">Why should people learn HTML?</a>
-                    </h2> 
-
-                    <div class="response">
-                        <p>5 Responses</p>
-                    </div>
-                    
-                </div>
-                <div class="main-question-content">
-                    <div class="user-info">
-                        <img src="images/images1.jpg" alt="User Avatar" class="user-avatar" />
-                        <span class="user"> <strong>Brady</strong></span>
-                        <span class="separate">&#x2022;</span>
-                        <span class="date-time">Posted on &lt;Date/Time&gt;</span>
-                    </div>
-
-                    <h2>
-                        <a class="question-detail-link" href="questionDetail.php">Is there an easy way to learn HTML?</a>
-                    </h2> 
-
-                    <div class="response">
-                        <p>2 Responses</p>
-                    </div>
-                    
-                </div>
-                <div class="main-question-content">
-                    <div class="user-info">
-                        <img src="images/images.jpg" alt="User Avatar" class="user-avatar" />
-                        <span class="user"> <strong>Francis</strong></span>
-                        <span class="separate">&#x2022;</span>
-                        <span class="date-time">Posted on &lt;Date/Time&gt;</span>
-                    </div>
-
-                    <h2>
-                        <a class="question-detail-link" href="questionDetail.php">Why should people learn HTML?</a>
-                    </h2>
-
-                    <div class="response">
-                        <p>4 Responses</p>
-                    </div>
-                    
-                </div>
-                
-                <div class="main-question-content">
-                    <div class="user-info">
-                        <img src="images/images1.jpg" alt="User Avatar" class="user-avatar" />
-                        <span class="user"> <strong>Brady</strong></span>
-                        <span class="separate">&#x2022;</span>
-                        <span class="date-time">Posted on &lt;Date/Time&gt;</span>
-                    </div>
-
-                    <h2>
-                        <a class="question-detail-link" href="questionDetail.php">Is there an easy way to learn HTML?</a>
-                    </h2> 
-
-                    <div class="response">
-                        <p>5 Responses</p>
-                    </div>
-                    
-                </div>
-            
-                <div class="main-question-content">
-                    <div class="user-info">
-                        <img src="images/images2.jpg" alt="User Avatar" class="user-avatar" />
-                        <span class="user"> <strong>Tajin</strong></span>
-                        <span class="separate">&#x2022;</span>
-                        <span class="date-time">Posted on &lt;Date/Time&gt;</span>
-                    </div>
-
-                    <h2>
-                        <a class="question-detail-link" href="questionDetail.php">What is the difference between HTML and CSS?</a>
-                    </h2>
-                
-                    <div class="response">
-                        <p>2 Responses</p>
-                    </div>
-                </div>
-                <div class="main-question-content">
-                    <div class="user-info">
-                        <img src="images/images.jpg" alt="User Avatar" class="user-avatar" />
-                        <span class="user"> <strong>Francis</strong></span>
-                        <span class="separate">&#x2022;</span>
-                        <span class="date-time">Posted on &lt;Date/Time&gt;</span>
-                    </div>
-
-                    <h2>
-                        <a class="question-detail-link" href="questionDetail.php">Why should people learn HTML?</a>
-                    </h2> 
-
-                    <div class="response">
-                        <p>4 Responses</p>
-                    </div>
-                    
-                </div>
-                <div class="main-question-content">
-                    <div class="user-info">
-                        <img src="images/images1.jpg" alt="User Avatar" class="user-avatar" />
-                        <span class="user"> <strong>Brady</strong></span>
-                        <span class="separate">&#x2022;</span>
-                        <span class="date-time">Posted on &lt;Date/Time&gt;</span>
-                    </div>
-
-                    <h2>
-                        <a class="question-detail-link" href="questionDetail.php">Is there an easy way to learn HTML?</a>
-                    </h2> 
-                    
-                    <div class="response">
-                        <p>5 Responses</p>
-                    </div>
-                    
-                </div>
+                <?php
+                }
+                $db = null;
+                ?>
             </article>
             <!-- Repeat for other questions -->
 
