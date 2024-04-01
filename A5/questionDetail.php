@@ -5,23 +5,31 @@
     if (!isset($_SESSION["user_id"])){
         header("Location: index.php");
         exit();
-    } 
+    }
+    //added
+    else{
+        $username = $_SESSION["screenname"];
+        $password = $_SESSION["password"];
+        $user_id = $_SESSION["user_id"];
+        $avatar_url = $_SESSION["avatar"];
+        $question_id = $_GET["question_id"];
+        $question = $_GET["question"];
+        $question_dt = $_GET["question_dt"];
+    }
     try {
         $db = new PDO($attr, $db_user, $db_pwd, $options);
     } catch (PDOException $e) {
         throw new PDOException($e->getMessage(), (int)$e->getCode());
     }
-    $avatar = $_SESSION["avatar"];
-    $username = $_SESSION["screen_name"];
-    $created_dt = $_SESSION["created_dt"];
-    $question_id = $_SESSION["question_id"];
+    // HANDLED AT THE TOP
+    // $avatar = $_SESSION["avatar"];
+    // $username = $_SESSION["screen_name"];
+    //$created_dt = $_SESSION["created_dt"];
+    // $question_id = $_SESSION["question_id"];
 
     $query = "SELECT
-            Questions.question_id,
-            Questions.question,
-            Questions.created_dt,
             Users.avatar,
-            Users.screen_name,
+            Users.screenname,
             Answers.answer,
             Answers.created_dt, 
             SUM(up_vote) AS upvotes, 
@@ -106,24 +114,34 @@
             </div>
 
             <?php
-            while($row = $result->fetch()){
+                while($row = $result->fetch()){
+                    if($row["answer"] != null){
             ?>
             <div class="answer">
                     <div class="user-info">
                         <img src="<?=$row["avatar"]?>" alt="Avatar" class="image" />
-                        <span class="user"><strong><?=$row["screen_name"]?></strong></span>
+                        <span class="user"><strong><?$row["screenname"]?></strong></span>
                         <span class="separate">&#x2022;</span>
                         <span class="date-time">Posted on <?=$row["created_dt"]?></span>
                     </div> 
                 <p><?=$row["answer"]?></p>
                 <div class="upvote-downvote">
-                    <button class="up-arrow" name="upvote">&#x21e7; <?=$row["upvotes"]?></button>
-                    <button class="down-arrow" name="downvote">&#x21e9; <?=$row["downvotes"]?></button>
+                    <button class="up-arrow">&#x21e7; <?=$row["upvotes"]?></button>
+                    <button class="down-arrow">&#x21e9; <?=$row["downvotes"]?></button>
                 </div>
             </div>
             <?php
-            }
+                    }
+                    else{
+            ?> 
+            <div class="answer">
+                <p>No Answers Have Been Submitted Yet...</p>
+            </div>          
+            <?php    
+                    }
+                }
             ?>
+
 
             <div class="auth-form">
                 <form id="response-form" action="questionDetail.php" method="post">
