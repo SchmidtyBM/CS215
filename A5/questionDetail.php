@@ -1,13 +1,10 @@
 <?php
     session_start();
     require_once("db.php");
-
-    if (!isset($_SESSION["user_id"])){
+    if (!isset($_SESSION["user_id"])) {
         header("Location: index.php");
         exit();
-    }
-    //added
-    else{
+    } else {
         $username = $_SESSION["screenname"];
         $password = $_SESSION["password"];
         $user_id = $_SESSION["user_id"];
@@ -16,16 +13,12 @@
         $question = $_GET["question"];
         $question_dt = $_GET["question_dt"];
     }
+    // Connect to the database and verify the connection
     try {
         $db = new PDO($attr, $db_user, $db_pwd, $options);
     } catch (PDOException $e) {
         throw new PDOException($e->getMessage(), (int)$e->getCode());
     }
-    // HANDLED AT THE TOP
-    // $avatar = $_SESSION["avatar"];
-    // $username = $_SESSION["screen_name"];
-    //$created_dt = $_SESSION["created_dt"];
-    // $question_id = $_SESSION["question_id"];
 
     $query = "SELECT
             Users.avatar,
@@ -46,39 +39,7 @@
         ORDER BY Questions.question_id, upvotes - downvotes desc";
 
     $result = $db->query($query);
-
-    if (isset($_POST["submit"]) && $_POST["submit"]){
-
-        $user_id = $_SESSION["user_id"];
-        $question_id = $_SESSION["question_id"];
-
-        $answer = $_POST["userAns"]; 
-
-        if (strlen($answer) > 0 && strlen($answer) <= 1500){
-            $query = "INSERT INTO Answers (question_id, user_id, answer, created_dt) VALUES ('$question_id', '$user_id', '$answer', NOW())";
-            $result = $db->exec($query);
-
-            $db = null;
-            header("Location: questionDetail.php");
-            exit();
-        }
-        else{
-            $error = ("Responses must be non-empty and less than 1500 characters");
-        }
-    }
-
-    else if(isset($_GET['up_vote'])&& $_GET['up_vote']!=""){
-        $upvote= $_GET['up_vote'];
-            
-    }
-    else if(isset($_GET['down_vote'])&& $_GET['down_vote']!=""){
-   
-        $downvote=$_GET['down_vote'];
-
-    }
-    
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -105,12 +66,12 @@
             <br />
             <div id="questionSection"> 
                     <div class="user-info">
-                        <img src="<?=$avatar?>" alt="Avatar" class="image" />
+                        <img src="<?=$avatar_url?>" alt="Avatar" class="image" />
                         <span class="user"><strong><?=$username?></strong></span>
                         <span class="separate">&#x2022;</span>
-                        <span class="date-time">Posted on <?=$created_dt?></span>
+                        <span class="date-time">Posted on <?=$question_dt?></span>
                     </div>  
-                <h2><?=$question_id?></h2>
+                <h2><?=$question?></h2>
             </div>
 
             <?php
@@ -142,23 +103,22 @@
                 }
             ?>
 
-
             <div class="auth-form">
                 <form id="response-form" action="questionDetail.php" method="post">
                     <p>
                         <label for="text-area" >Post Your Answer:</label>
-                        <textarea id="text-area" name="userAns" rows="10" cols="5" placeholder="Enter your Answer"></textarea>
+                        <textarea id="text-area" name="userAns" rows="10" cols="5" placeholder="Enter Your Answer"></textarea>
                         <p id="charcount" class="charcount">0/1500</p>
-                        <input type="submit" name="submit" value="Submit" />
+                        <input type="submit" value="Submit"/>
                     </p>
                 </form>
             </div>
         </main>
 
         <main id="main-right">
-            <a class="logout" href="logout.php">Logout</a>
-            <div class="username"> <?=$username?> </div>
-            <img src="<?=$avatar?>" alt="Avatar" class="image" />
+            <a class="logout" href="index.php">Logout</a>
+            <div class="username"><?=$username?></div>
+            <img src="<?=$avatar_url?>" alt="Avatar" class="image" />
         </main>
     
         <footer id="footer-auth">
