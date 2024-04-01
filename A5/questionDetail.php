@@ -1,3 +1,76 @@
+<?php
+    session_start();
+    require_once("db.php");
+
+    if (!isset($_SESSION["user_id"])){
+        header("Location: index.php");
+        exit();
+    } 
+    try {
+        $db = new PDO($attr, $db_user, $db_pwd, $options);
+    } catch (PDOException $e) {
+        throw new PDOException($e->getMessage(), (int)$e->getCode());
+    }
+    $avatar = $_SESSION["avatar"];
+    $username = $_SESSION["screen_name"];
+    $created_dt = $_SESSION["created_dt"];
+    $question_id = $_SESSION["question_id"];
+
+    $query = "SELECT
+            Questions.question_id,
+            Questions.question,
+            Questions.created_dt,
+            Users.avatar,
+            Users.screen_name,
+            Answers.answer,
+            Answers.created_dt, 
+            SUM(up_vote) AS upvotes, 
+            SUM(down_vote) AS downvotes 
+        FROM Votes 
+        RIGHT JOIN Answers 
+        ON Votes.answer_id = Answers.answer_id
+        RIGHT JOIN Users
+        ON Answers.user_id = Users.user_id
+        RIGHT JOIN Questions
+        ON Questions.question_id = Answers.question_id
+        WHERE (Questions.question_id = '$question_id')
+        GROUP BY Answers.answer_id, Questions.question_id, Users.user_id
+        ORDER BY Questions.question_id, upvotes - downvotes desc";
+
+    $result = $db->query($query);
+
+    if (isset($_POST["submit"]) && $_POST["submit"]){
+
+        $user_id = $_SESSION["user_id"];
+        $question_id = $_SESSION["question_id"];
+
+        $answer = $_POST["userAns"]; 
+
+        if (strlen($answer) > 0 && strlen($answer) <= 1500){
+            $query = "INSERT INTO Answers (question_id, user_id, answer, created_dt) VALUES ('$question_id', '$user_id', '$answer', NOW())";
+            $result = $db->exec($query);
+
+            $db = null;
+            header("Location: questionDetail.php");
+            exit();
+        }
+        else{
+            $error = ("Responses must be non-empty and less than 1500 characters");
+        }
+    }
+
+    else if(isset($_GET['up_vote'])&& $_GET['up_vote']!=""){
+        $upvote= $_GET['up_vote'];
+            
+    }
+    else if(isset($_GET['down_vote'])&& $_GET['down_vote']!=""){
+   
+        $downvote=$_GET['down_vote'];
+
+    }
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,100 +97,50 @@
             <br />
             <div id="questionSection"> 
                     <div class="user-info">
-                        <img src="images/avatar.jpg" alt="Avatar" class="image" />
-                        <span class="user"><strong>&lt;user&gt;</strong></span>
+                        <img src="<?=$avatar?>" alt="Avatar" class="image" />
+                        <span class="user"><strong><?=$username?></strong></span>
                         <span class="separate">&#x2022;</span>
-                        <span class="date-time">Posted on &lt;Date/Time&gt;</span>
+                        <span class="date-time">Posted on <?=$created_dt?></span>
                     </div>  
-                <h2>How do I pass CS215?</h2>
+                <h2><?=$question_id?></h2>
             </div>
 
+            <?php
+            while($row = $result->fetch()){
+            ?>
             <div class="answer">
                     <div class="user-info">
-                        <img src="images/avatar.jpg" alt="Avatar" class="image" />
-                        <span class="user"><strong>&lt;user&gt;</strong></span>
+                        <img src="<?=$row["avatar"]?>" alt="Avatar" class="image" />
+                        <span class="user"><strong><?=$row["screen_name"]?></strong></span>
                         <span class="separate">&#x2022;</span>
-                        <span class="date-time">Posted on &lt;Date/Time&gt;</span>
+                        <span class="date-time">Posted on <?=$row["created_dt"]?></span>
                     </div> 
-                <p>Do the asynchronous material and the labs. Also attend the drop-in sessions!</p>
+                <p><?=$row["answer"]?></p>
                 <div class="upvote-downvote">
-                    <button class="up-arrow">&#x21e7; 5</button>
-                    <button class="down-arrow">&#x21e9; 1</button>
+                    <button class="up-arrow" name="upvote">&#x21e7; <?=$row["upvotes"]?></button>
+                    <button class="down-arrow" name="downvote">&#x21e9; <?=$row["downvotes"]?></button>
                 </div>
             </div>
-
-            <div class="answer">
-                    <div class="user-info">
-                        <img src="images/avatar.jpg" alt="Avatar" class="image" />
-                        <span class="user"><strong>&lt;user&gt;</strong></span>
-                        <span class="separate">&#x2022;</span>
-                        <span class="date-time">Posted on &lt;Date/Time&gt;</span>
-                    </div>
-                <p>Take time every week to study hard.</p>
-                <div class="upvote-downvote">
-                    <button class="up-arrow">&#x21e7; 4</button>
-                    <button class="down-arrow">&#x21e9; 1</button>
-                </div>
-            </div>
-
-            <div class="answer">
-                    <div class="user-info">
-                        <img src="images/avatar.jpg" alt="Avatar" class="image" />
-                        <span class="user"><strong>&lt;user&gt;</strong></span>
-                        <span class="separate">&#x2022;</span>
-                        <span class="date-time">Posted on &lt;Date/Time&gt;</span>
-                    </div>
-                <p>Listen to the prof and the instructors during the meetings.</p>
-                <div class="upvote-downvote">
-                    <button class="up-arrow">&#x21e7; 4</button>
-                    <button class="down-arrow">&#x21e9; 2</button>
-                </div>
-            </div>
-
-            <div class="answer">
-                    <div class="user-info">
-                        <img src="images/avatar.jpg" alt="Avatar" class="image" />
-                        <span class="user"><strong>&lt;user&gt;</strong></span>
-                        <span class="separate">&#x2022;</span>
-                        <span class="date-time">Posted on &lt;Date/Time&gt;</span>
-                    </div>
-                <p>Idk bro, good luck tho</p>
-                <div class="upvote-downvote">
-                    <button class="up-arrow">&#x21e7; 2</button>
-                    <button class="down-arrow">&#x21e9; 4</button>
-                </div>
-            </div>
-
-            <div class="answer">
-                    <div class="user-info">
-                        <img src="images/avatar.jpg" alt="Avatar" class="image" />
-                        <span class="user"><strong>&lt;user&gt;</strong></span>
-                        <span class="separate">&#x2022;</span>
-                        <span class="date-time">Posted on &lt;Date/Time&gt;</span>
-                    </div>
-                <p>You don't.</p>
-                <div class="upvote-downvote">
-                    <button class="up-arrow">&#x21e7; 1</button>
-                    <button class="down-arrow">&#x21e9; 3</button>
-                </div>
-            </div>
+            <?php
+            }
+            ?>
 
             <div class="auth-form">
                 <form id="response-form" action="questionDetail.php" method="post">
                     <p>
                         <label for="text-area" >Post Your Answer:</label>
-                        <textarea id="text-area" name="userAns" rows="10" cols="5" placeholder="Enter Your Answer"></textarea>
+                        <textarea id="text-area" name="userAns" rows="10" cols="5" placeholder="Enter your Answer"></textarea>
                         <p id="charcount" class="charcount">0/1500</p>
-                        <input type="submit" value="Submit"/>
+                        <input type="submit" name="submit" value="Submit" />
                     </p>
                 </form>
             </div>
         </main>
 
         <main id="main-right">
-            <a class="logout" href="index.php">Logout</a>
-            <div class="username">Username</div>
-            <img src="images/avatar.jpg" alt="Avatar" class="image" />
+            <a class="logout" href="logout.php">Logout</a>
+            <div class="username"> <?=$username?> </div>
+            <img src="<?=$avatar?>" alt="Avatar" class="image" />
         </main>
     
         <footer id="footer-auth">
