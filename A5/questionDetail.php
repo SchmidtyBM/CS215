@@ -12,6 +12,8 @@
         $question_id = $_GET["question_id"];
         $question = $_GET["question"];
         $question_dt = $_GET["question_dt"];
+        $profile = $_GET["profile"];
+        $uname = $_GET["uname"];
     }
     // Connect to the database and verify the connection
     try {
@@ -39,6 +41,7 @@
         ORDER BY Questions.question_id, upvotes - downvotes desc";
 
     $result = $db->query($query);
+    echo($profile);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,8 +69,8 @@
             <br />
             <div id="questionSection"> 
                     <div class="user-info">
-                        <img src="<?=$avatar_url?>" alt="Avatar" class="image" />
-                        <span class="user"><strong><?=$username?></strong></span>
+                        <img src="<?=$profile?>" alt="Avatar" class="image" />
+                        <span class="user"><strong><?=$uname?></strong></span>
                         <span class="separate">&#x2022;</span>
                         <span class="date-time">Posted on <?=$question_dt?></span>
                     </div>  
@@ -81,7 +84,7 @@
             <div class="answer">
                     <div class="user-info">
                         <img src="<?=$row["avatar"]?>" alt="Avatar" class="image" />
-                        <span class="user"><strong><?$row["screenname"]?></strong></span>
+                        <span class="user"><strong><?=$row["screenname"]?></strong></span>
                         <span class="separate">&#x2022;</span>
                         <span class="date-time">Posted on <?=$row["created_dt"]?></span>
                     </div> 
