@@ -41,7 +41,6 @@
         ORDER BY Questions.question_id, upvotes - downvotes desc";
 
     $result = $db->query($query);
-    echo($profile);
 ?>
 <!DOCTYPE html>
 <html lang="en">
