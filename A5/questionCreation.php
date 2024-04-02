@@ -5,7 +5,13 @@
     if (!isset($_SESSION["user_id"])){
         header("Location: index.php");
         exit();
-    } 
+    }
+    else{
+        $username = $_SESSION["screenname"];
+        $password = $_SESSION["password"];
+        $user_id = $_SESSION["user_id"];
+        $avatar_url = $_SESSION["avatar"];
+    }
     if (isset($_POST["submit"]) && $_POST["submit"]){
 
         $user_id = $_SESSION["user_id"];
@@ -70,8 +76,8 @@
 
         <main id="main-right">
             <a class="logout" href="index.php">Logout</a>
-            <div class="username">username</div>
-            <img src="images/avatar.jpg" alt="Avatar" class="image" />
+            <div class="username"><?=$username?></div>
+            <img src="<?=$avatar_url?>" alt="Avatar" class="image" />
         </main>
     
         <footer id="footer-auth">
