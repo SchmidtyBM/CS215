@@ -59,6 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $query = "SELECT
             Users.user_id,
+            Users.avatar,
             Users.screenname,
             Users.password
             FROM Users
@@ -72,6 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             session_start();
 
             $_SESSION["user_id"] = $row["user_id"];
+            $_SESSION["avatar"] = $row["avatar"];
             $_SESSION["screenname"] = $row["screenname"];
             $_SESSION["password"] = $row["password"];
             
@@ -116,33 +118,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <article class="main-question-container">
                 
+            <?php
+                while($row = $result->fetch()){
+            ?>
                 <div class="main-question-content">
-                    <?php
-                    while($row = $result->fetch()){
-                    ?>
-                        <div class="user-info">
+                    <div class="user-info">
                             <img src="<?=$row["avatar"]?>" alt="User Avatar" class="user-avatar" />
                             <span class="user"> <strong><?= $row["screenname"]?></strong></span>
                             <span class="separate">&#x2022;</span>
                             <span class="date-time">Posted on <?= $row["created_dt"]?></span>
-                        </div>
+                    </div>
 
                     <h2>
                         <a class="question-detail-link" href="questionDetail.php"><?= $row["question"]?>?</a>
                     </h2> 
                     <div class="response">
                         <p> <?= $row["total_responses"]?> Responses</p>
-                    </div>
-                    <?php
-                    }
-                    $db = null;
-                    ?>
-                    
+                    </div>                    
                 </div>
+            <?php
+                }
+                $db = null;
+            ?>
  
         </main>
         <main id="main-right">
-                <form id="login-form" action="mainAfterLogin.php" method="post">
+                <form id="login-form" action="" method="post">
                     
                     <div class="main-login">
                         <p>
